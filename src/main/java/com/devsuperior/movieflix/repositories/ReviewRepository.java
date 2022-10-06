@@ -14,7 +14,7 @@ public interface ReviewRepository extends JpaRepository<Review, Long>{
 	@Query("SELECT new com.devsuperior.movieflix.dto.ReviewDTO(obj) "
 			+ "FROM Review obj "
 			+ "INNER JOIN obj.movie movie "
-			+ "WHERE m = :movie")
+			+ "WHERE obj.movie = :movie")
 	List<ReviewDTO> findReviewsByMovie(Movie movie);
 	
 }
