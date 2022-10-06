@@ -1,21 +1,19 @@
 package com.devsuperior.movieflix.dto;
 
-import java.util.List;
+import com.devsuperior.movieflix.entities.Genre;
 
 public class GenreDTO {
 
 	private Long id;
 	private String name;
-	private List<MovieDTO> movies;
 	
 	public GenreDTO() {
 		
 	}
 
-	public GenreDTO(Long id, String name) {
-		super();
-		this.id = id;
-		this.name = name;
+	public GenreDTO(Genre entity) {
+		id = entity.getId();
+		name = entity.getName();
 	}
 
 	public Long getId() {
@@ -34,7 +32,4 @@ public class GenreDTO {
 		this.name = name;
 	}
 
-	public List<MovieDTO> getMovies() {
-		return movies;
-	}
 }
