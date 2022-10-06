@@ -10,10 +10,12 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.devsuperior.movieflix.dto.MovieCardDTO;
+import com.devsuperior.movieflix.dto.MovieDetailsDTO;
 import com.devsuperior.movieflix.entities.Genre;
 import com.devsuperior.movieflix.entities.Movie;
 import com.devsuperior.movieflix.repositories.GenreRepository;
 import com.devsuperior.movieflix.repositories.MovieRepository;
+import com.devsuperior.movieflix.services.exceptions.ResourceNotFoundException;
 
 @Service
 public class MovieService {
@@ -23,6 +25,12 @@ public class MovieService {
 	
 	@Autowired
 	private GenreRepository genreRepository;
+	
+	@Transactional(readOnly = true)
+	public MovieDetailsDTO findById(Long id) {
+		return movieRepository.findById(id).map(MovieDetailsDTO::new)
+				.orElseThrow(() -> new ResourceNotFoundException("Id not found"));
+	}
 	
 	@Transactional(readOnly = true)
 	public Page<MovieCardDTO> findMoviesPaged(Long genreId, Pageable pageable) {
